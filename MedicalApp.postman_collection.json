@@ -15,7 +15,7 @@
 						"header": [
 							{
 								"key": "auth-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYXNzZW1hbW1hciIsImlkIjoiNjAyYjY2ODk3ZGQxZjMyNmQ0YTcyNTY4Iiwicm9sZSI6WyJhZG1pbiJdLCJpYXQiOjE2MTUxMjgzMzF9.6qLqhGQJSPfJyzttVSb3h0PMdgMZBxGnDLEdaKxSFys",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW5fMSIsImlkIjoiNjA0NGU3NDliYzlkNDkxYTAwMjA5NjA4Iiwicm9sZSI6WyJhZG1pbiJdLCJpYXQiOjE2MTUxMjg1NTJ9.0lXWllqhkyAPMPksO1Jtz7SMXZvL-VQ44DaCLPSevSw",
 								"type": "text"
 							}
 						],
