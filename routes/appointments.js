@@ -2,12 +2,35 @@ const router = require("express").Router();
 const _ = require('lodash');
 const ObjectId = require('mongodb').ObjectID;   
 
+const authorize = require('./authorize')
+
 const Appointment = require('../model/appointments.js');
+const Referral = require('../model/referrals.js');
+
+// Get patient referrals
+router.get('/patient/:id', async(req, res) => {
+    var id = new ObjectId(req.params.id);
+    try {
+        let patient = await Patient.findById(id)
+        let referrals = await Referral.find({patientId: patient._id});
+        let appointments = await Appointment.find({patientId: patient._id});
+        p = patient.toObject();
+        p.referrals = referrals
+        p.appointments = appointments
+        if (p) {
+            res.send(p)
+        } else {
+            res.send("Patient does not exist")
+        }
+    } catch (error) {
+        res.status(400).json({ error });
+    }
+});
 
 // Get all appointments
 router.get('/', async(req, res) => {
     // authorize the user roles
-    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+    let a =await authorize(req.user.id, ['admin','clerk','doctor','nurse','paramedic']);
 
     if(!a){
         res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })

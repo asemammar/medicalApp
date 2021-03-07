@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const _ = require('lodash');
 const ObjectId = require('mongodb').ObjectID;   
-
+const authorize = require('./authorize')
 const Patient = require('../model/patients.js');
+
 
 // get all patients
 router.get('/', async(req, res) => {
@@ -14,6 +15,7 @@ router.get('/', async(req, res) => {
     }
 
     console.log(req.user.id)
+
     try {
         let p = await Patient.find({})
             res.send(p)
