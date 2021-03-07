@@ -9,6 +9,17 @@ const Referral = require('../model/referrals.js');
 
 // Get patient referrals
 router.get('/patient/:id', async(req, res) => {
+    try {
+        // authorize the user roles
+        let a =await authorize(req.user.id, ['admin','clerk','doctor','nurse','paramedic']);
+
+        if(!a){
+            res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        }
+    } catch (error){
+        res.status(400).json({ error });
+    }
+    
     var id = new ObjectId(req.params.id);
     try {
         let patient = await Patient.findById(id)
@@ -29,13 +40,17 @@ router.get('/patient/:id', async(req, res) => {
 
 // Get all appointments
 router.get('/', async(req, res) => {
-    // authorize the user roles
-    let a =await authorize(req.user.id, ['admin','clerk','doctor','nurse','paramedic']);
+    try {
+        // authorize the user roles
+        let a =await authorize(req.user.id, ['admin','clerk','doctor','nurse','paramedic']);
 
-    if(!a){
-        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        if(!a){
+            res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        }
+    } catch (error){
+        res.status(400).json({ error });
     }
-
+    
     try {
         let p = await Appointment.find({});
         res.send(p);
@@ -47,11 +62,15 @@ router.get('/', async(req, res) => {
 
 // Search appointment in database using object id
 router.get('/id/:id', async(req, res) => {
-    // authorize the user roles
-    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+    try {
+        // authorize the user roles
+        let a =await authorize(req.user.id, ['admin','clerk','doctor','nurse','paramedic']);
 
-    if(!a){
-        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        if(!a){
+            res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        }
+    } catch (error){
+        res.status(400).json({ error });
     }
 
     var id = new ObjectId(req.params.id);
@@ -69,11 +88,15 @@ router.get('/id/:id', async(req, res) => {
 
 // Search appointment in database using fulfilment status
 router.get('/status/:status', async(req, res) => {
-    // authorize the user roles
-    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+    try {
+        // authorize the user roles
+        let a =await authorize(req.user.id, ['admin','clerk','doctor','nurse','paramedic']);
 
-    if(!a){
-        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        if(!a){
+            res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        }
+    } catch (error){
+        res.status(400).json({ error });
     }
 
     var status = req.params.status;
@@ -96,11 +119,15 @@ router.get('/status/:status', async(req, res) => {
 
 // Search appointment in database using date restrictions
 router.get('/date', async(req, res) => {
-    // authorize the user roles
-    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+    try {
+        // authorize the user roles
+        let a =await authorize(req.user.id, ['admin','clerk','doctor','nurse','paramedic']);
 
-    if(!a){
-        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        if(!a){
+            res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        }
+    } catch (error){
+        res.status(400).json({ error });
     }
 
     try {
@@ -128,11 +155,15 @@ router.get('/date', async(req, res) => {
 
 // Create a new patient and add it to the database
 router.post('/newAppointment', async(req, res) => {
-    // authorize the user roles
-    let a =await authorize(req.user.id,['admin','clerk']);
+    try {
+        // authorize the user roles
+        let a =await authorize(req.user.id, ['admin','clerk']);
 
-    if(!a){
-        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        if(!a){
+            res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        }
+    } catch (error){
+        res.status(400).json({ error });
     }
 
     try {
@@ -157,11 +188,15 @@ router.post('/newAppointment', async(req, res) => {
 
 // Delete appointment in database using object id
 router.delete('/id/:id', async(req, res) => {
-    // authorize the user roles
-    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+    try {
+        // authorize the user roles
+        let a =await authorize(req.user.id, ['admin','clerk','doctor','nurse','paramedic']);
 
-    if(!a){
-        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        if(!a){
+            res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        }
+    } catch (error){
+        res.status(400).json({ error });
     }
 
     try {
@@ -181,12 +216,16 @@ router.delete('/id/:id', async(req, res) => {
 
 // Update appointment document using object id
 router.put('/id/:id', async(req, res) => {
-    // authorize the user roles
-    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+    try {
+        // authorize the user roles
+        let a =await authorize(req.user.id, ['admin','clerk','doctor','nurse','paramedic']);
 
-    if(!a){
-        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
-    } 
+        if(!a){
+            res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+        }
+    } catch (error){
+        res.status(400).json({ error });
+    }
     
     try {
         var id = new ObjectId(req.params.id);
