@@ -10,6 +10,12 @@ const User = require('../model/user.js');
 // Search referrals in database using patientName
 router.post('/patientName', async(req, res) => {
     try {
+        // authorize the user roles
+    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+
+    if(!a){
+        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+    }
         let patientId = 0;
         let patient = await Patient.findOne({patientName: req.body.patientName});
         if (patient) {
@@ -28,6 +34,12 @@ router.post('/patientName', async(req, res) => {
 // Search referrals in database using patientId
 router.post('/patientId', async(req, res) => {
     try {
+        // authorize the user roles
+    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+
+    if(!a){
+        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+    }
         let referrals = await Referral.find({patientId: req.body.patientId});
         if (referrals) {
             res.send(referrals);
@@ -43,6 +55,12 @@ router.post('/patientId', async(req, res) => {
 // Search referrals in database using userName
 router.post('/userName', async(req, res) => {
     try {
+        // authorize the user roles
+    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+
+    if(!a){
+        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+    }
         let userId = 0;
         let user = await User.findOne({name: req.body.userName});
         if (user) {
@@ -61,6 +79,12 @@ router.post('/userName', async(req, res) => {
 // Search referrals in database using patientId
 router.post('/userId', async(req, res) => {
     try {
+        // authorize the user roles
+    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+
+    if(!a){
+        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+    }
         let referrals = await Referral.find({userId: req.body.userId});
         if (referrals) {
             res.send(referrals);
@@ -75,6 +99,12 @@ router.post('/userId', async(req, res) => {
 // Create a new patient and add it to the database
 router.post('/newReferralById', async(req, res) => {
     try {
+        // authorize the user roles
+    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+
+    if(!a){
+        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+    }
         const referral = new Referral({
             patientId: req.body.patientId,
             userId: req.body.userId,
@@ -90,6 +120,12 @@ router.post('/newReferralById', async(req, res) => {
 // Set Justification By ID
 router.post('/setJustificationById', async(req, res) => {
     try {
+        // authorize the user roles
+    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+
+    if(!a){
+        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+    }
         let referrals = await Referral.updateOne({_id: req.body.id},{justification:req.body.justification},function(err,result) {
                         if (err) {
                         res.send(err);
@@ -105,6 +141,13 @@ router.post('/setJustificationById', async(req, res) => {
 // Set Comment By ID
 router.post('/setCommentById', async(req, res) => {
     try {
+
+        // authorize the user roles
+    let a =await authorize(req.user.id,['admin','clerk','doctor','nurse','paramedic']);
+
+    if(!a){
+        res.status(401).json({ error: 'Unauthorized, This action will be reported to an admin' })
+    }
         let referrals = await Referral.findOneAndUpdate(
    { _id: req.body.id },
    { $push: { comments: req.body.comment  } },
