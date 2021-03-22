@@ -36,3 +36,5 @@ app.use("/api/appointments", verifyToken, appointmentRoutes);
 app.use("/api/treatments/", verifyToken, treatmentRoutes);
 
 app.listen(3000, () => console.log("server is running..."));
+
+module.exports = app
