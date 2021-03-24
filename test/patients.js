@@ -17,7 +17,7 @@ chai.use(chaiHttp);
 before(function(done) {
     conn.connect(done);
 });
-
+console.log('hi')
 
 let  token = jwt.sign(
   // payload data
