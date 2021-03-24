@@ -7,14 +7,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // connect to db
-mongoose.connect(
-process.env.DB,
-{
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-},
-() => console.log("connected to db")
-);
+// mongoose.connect(
+// process.env.DB,
+// {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// },
+// () => console.log("connected to db")
+// );
 
 
 // import routes
