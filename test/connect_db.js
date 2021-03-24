@@ -13,6 +13,4 @@ exports.connect = function(cb) {
         },
         () => cb()
         );
-
-
 }
